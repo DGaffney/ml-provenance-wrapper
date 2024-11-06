@@ -1,5 +1,5 @@
 # ML Provenance Wrapper
-
+![CI](https://github.com/DGaffney/ml-provenance-wrapper/actions/workflows/ci.yml/badge.svg)
 `ML Provenance Wrapper` is a Python package that helps track metadata and provenance information for machine learning models. Designed to integrate seamlessly with scikit-learn and other models with `fit`/`predict` methods, it provides a convenient way to store important metadata such as training parameters, dataset characteristics, dependencies, and example data. This makes your models reproducible and easier to manage across projects and versions.
 
 ## Features
