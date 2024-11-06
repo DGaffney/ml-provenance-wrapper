@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import scipy.sparse as sp
 import unittest
-from model_provenance.core import ModelProvenance
+from model_provenance.model_provenance import ModelProvenance
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
