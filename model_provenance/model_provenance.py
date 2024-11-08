@@ -10,6 +10,24 @@ import sys
 
 logging.basicConfig(level=logging.INFO, stream=sys.stdout)
 logger = logging.getLogger(__name__)
+def normalize_for_json(data):
+    """
+    Recursively convert non-serializable types (like np.int64) into JSON-compatible formats.
+    """
+    if isinstance(data, dict):
+        return {key: normalize_for_json(value) for key, value in data.items()}
+    elif isinstance(data, list):
+        return [normalize_for_json(element) for element in data]
+    elif isinstance(data, np.integer):
+        return int(data)
+    elif isinstance(data, np.floating):
+        return float(data)
+    elif isinstance(data, np.ndarray):
+        return data.tolist()
+    elif isinstance(data, pd.Series) or isinstance(data, pd.DataFrame):
+        return data.to_dict(orient='list')
+    else:
+        return data
 
 class ModelProvenance:
     def __init__(self, model: Any, version: str = "1.0.0", seed: Optional[int] = None, custom_metadata: Dict[str, Any] = None):
@@ -108,16 +126,19 @@ class ModelProvenance:
 
     def save(self, model_path: str, metadata_path: str = None, example_data_path: str = None):
         joblib.dump(self.model, model_path)
-        
+    
         if example_data_path:
             self._save_example_data(self.metadata['dataset_info']['X_samples'], example_data_path)
             self.metadata['example_data_path'] = example_data_path
 
         if metadata_path is None:
-            metadata_path = model_path.replace('.pkl', '_metadata.json')
+            metadata_path = model_path.replace('.joblib', '_metadata.json')
+    
+        # Normalize metadata before saving as JSON
+        normalized_metadata = normalize_for_json(self.metadata)
         with open(metadata_path, 'w') as f:
-            json.dump(self.metadata, f, indent=4)
-        
+            json.dump(normalized_metadata, f, indent=4)
+    
         logger.info("Model saved to %s, metadata saved to %s, example data saved to %s", model_path, metadata_path, example_data_path or 'N/A')
 
     def _save_example_data(self, example_data: Any, example_data_path: str):
@@ -149,7 +170,7 @@ class ModelProvenance:
         model = joblib.load(model_path)
         
         if metadata_path is None:
-            metadata_path = model_path.replace('.pkl', '_metadata.json')
+            metadata_path = model_path.replace('.joblib', '_metadata.json')
         with open(metadata_path, 'r') as f:
             metadata = json.load(f)
         

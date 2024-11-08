@@ -43,9 +43,9 @@ class TestModelProvenance(unittest.TestCase):
         self.assertIsNotNone(self.model_provenance.metadata['dataset_info'])
 
         # Test saving model and metadata
-        model_path = 'test_model.pkl'
+        model_path = 'test_model.joblib'
         metadata_path = 'test_model_metadata.json'
-        example_data_path = 'test_example_data.pkl'
+        example_data_path = 'test_example_data.joblib'
         self.model_provenance.save(model_path, metadata_path, example_data_path)
 
         # Check files were created
@@ -62,9 +62,9 @@ class TestModelProvenance(unittest.TestCase):
         self.model_provenance.fit(X, y)
         self.assertIsNotNone(self.model_provenance.metadata['dataset_info'])
 
-        model_path = 'test_model_df.pkl'
+        model_path = 'test_model_df.joblib'
         metadata_path = 'test_model_df_metadata.json'
-        example_data_path = 'test_example_data_df.pkl'
+        example_data_path = 'test_example_data_df.joblib'
         self.model_provenance.save(model_path, metadata_path, example_data_path)
 
         self.cleanup_files.extend([model_path, metadata_path, example_data_path])
@@ -80,9 +80,9 @@ class TestModelProvenance(unittest.TestCase):
         self.model_provenance.fit(X, y)
         self.assertIsNotNone(self.model_provenance.metadata['dataset_info'])
 
-        model_path = 'test_model_sparse.pkl'
+        model_path = 'test_model_sparse.joblib'
         metadata_path = 'test_model_sparse_metadata.json'
-        example_data_path = 'test_example_data_sparse.pkl'
+        example_data_path = 'test_example_data_sparse.joblib'
         self.model_provenance.save(model_path, metadata_path, example_data_path)
 
         self.cleanup_files.extend([model_path, metadata_path, example_data_path])
@@ -98,9 +98,9 @@ class TestModelProvenance(unittest.TestCase):
         self.model_provenance.fit(X, y)
         self.assertIsNotNone(self.model_provenance.metadata['dataset_info'])
 
-        model_path = 'test_model_list.pkl'
+        model_path = 'test_model_list.joblib'
         metadata_path = 'test_model_list_metadata.json'
-        example_data_path = 'test_example_data_list.pkl'
+        example_data_path = 'test_example_data_list.joblib'
         self.model_provenance.save(model_path, metadata_path, example_data_path)
 
         self.cleanup_files.extend([model_path, metadata_path, example_data_path])
@@ -127,9 +127,9 @@ class TestModelProvenance(unittest.TestCase):
         model_provenance_pipeline.fit(X, y)
         self.assertIsNotNone(model_provenance_pipeline.metadata['dataset_info'])
 
-        model_path = 'test_model_pipeline.pkl'
+        model_path = 'test_model_pipeline.joblib'
         metadata_path = 'test_model_pipeline_metadata.json'
-        example_data_path = 'test_example_data_pipeline.pkl'
+        example_data_path = 'test_example_data_pipeline.joblib'
         model_provenance_pipeline.save(model_path, metadata_path, example_data_path)
 
         self.cleanup_files.extend([model_path, metadata_path, example_data_path])
@@ -141,9 +141,9 @@ class TestModelProvenance(unittest.TestCase):
         X = np.random.rand(100, 10)
         y = np.random.randint(2, size=100)
 
-        model_path = 'test_model_metadata.pkl'
+        model_path = 'test_model_metadata.joblib'
         metadata_path = 'test_model_metadata.json'
-        example_data_path = 'test_example_data_metadata.pkl'
+        example_data_path = 'test_example_data_metadata.joblib'
         self.cleanup_files.extend([model_path, metadata_path, example_data_path])
 
         self.model_provenance.fit(X, y)

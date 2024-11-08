@@ -41,7 +41,7 @@ provenance_model = ModelProvenance(model, version="1.0.0", seed=42)
 provenance_model.fit(X, y)
 
 # Save the model, metadata, and example data
-provenance_model.save('logistic_model.pkl', 'logistic_metadata.json', 'example_data.pkl')`
+provenance_model.save('logistic_model.joblib', 'logistic_metadata.json', 'example_data.joblib')`
 ```
 
 ### Example with a scikit-learn Pipeline
@@ -68,7 +68,7 @@ provenance_pipeline = ModelProvenance(pipeline, version="1.0.1")
 provenance_pipeline.fit(X, y)
 
 # Save the model, metadata, and example data
-provenance_pipeline.save('pipeline_model.pkl', 'pipeline_metadata.json', 'example_data_pipeline.pkl')`
+provenance_pipeline.save('pipeline_model.joblib', 'pipeline_metadata.json', 'example_data_pipeline.joblib')`
 ```
 
 ### Loading a Model with Metadata
@@ -79,7 +79,7 @@ To reload a previously saved model along with its metadata:
 from model_provenance import ModelProvenance
 
 # Load the model and its metadata
-loaded_provenance_model = ModelProvenance.load('logistic_model.pkl', 'logistic_metadata.json', 'example_data.pkl')
+loaded_provenance_model = ModelProvenance.load('logistic_model.joblib', 'logistic_metadata.json', 'example_data.joblib')
 
 # Access metadata
 print("Model Version:", loaded_provenance_model.metadata['version'])
